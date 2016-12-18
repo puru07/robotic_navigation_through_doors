@@ -16,7 +16,7 @@ by modifying the motion primitives in '<b>astar.py</b>'.
 
 <h3>Solution: </h3>
 run:  <b>main.py</b>  (cpp version in on the way)
-<b>main.py</b> would use astar.py to find the states, as per the problem
+<br><b>main.py</b> would use astar.py to find the states, as per the problem
 specs in main.py . 
 The solution is printed in <b>tree.txt</b>.
 
