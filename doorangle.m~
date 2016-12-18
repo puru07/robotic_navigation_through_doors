@@ -1,0 +1,9 @@
+function angle = doorangle(tree,robodim, doordim)
+d =  tree(3);
+h = tree(4);
+v = tree(5);
+if (d== 0) 
+    corner = [tree(1)-robodim(1),tree(2) + robodim(2)];
+    angle
+    
+end
