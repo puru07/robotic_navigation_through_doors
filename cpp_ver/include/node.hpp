@@ -18,9 +18,9 @@ public:
 
 	node(int *goal,int X,int Y ,int cost , int Pkey );
 	~node(){};
-	std::vector<node> getSuccs(int *goal,int& xlim, int& ylim);
+	void getSuccs(std::vector<node>& succsNode, int *goal,int& xlim, int& ylim);
 	// int getKey(int X, int Y);
-	int getFcost( int *goal) ; 
+	void getFcost( int *goal) ; 
 	int getPkey(){return pkey_;};
 	int getGcost(){return gcost_;};
 };
