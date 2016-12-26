@@ -5,17 +5,11 @@ node::node(int *goal,int X = 0,int Y = 0,int cost = 1, int Pkey = 0)
 	x = X;
 	y = Y;
 	gcost_ = cost + 1;
-	key = getKey(x,y);
+	key =  x*100 + y;
 	fcost = getFcost(goal);
 	pkey_ = Pkey;
 }
-node::~node(){
-	
-}
-int node::getKey(int X , int Y )
-{
-	return Y*100 + X;
-}
+
 
 int node::getFcost( int *goal) 
 {
@@ -25,16 +19,13 @@ int node::getFcost( int *goal)
 	return gcost_ + h;
 }
 
-std::vector<node> node::getSuccs(int *goal)
+std::vector<node> node::getSuccs(int *goal,int& xlim, int& ylim)
 {
- 	int x1 = x+1;
- 	int x2 = x-1;
- 	int y2 = y-1;
- 	int y1 = y+1;
+
  	std::vector<node> succsNode ;
- 	succsNode.push_back( node(goal,x1,y1,gcost_,pkey_));
-	succsNode.push_back(node(goal,x1,y2,gcost_,pkey_));
-	succsNode.push_back( node(goal,x2,y1,gcost_,pkey_));
-	succsNode.push_back( node(goal,x2,y2,gcost_,pkey_));
+ 	if(x+1<xlim){succsNode.push_back( node(goal,x+1,y,gcost_,key));}
+ 	if(x-1 > 0){succsNode.push_back( node(goal,x-1,y,gcost_,key));}
+ 	if(y+1<ylim){succsNode.push_back( node(goal,x,y+1,gcost_,key));}
+ 	if(y-1>0){succsNode.push_back( node(goal,x,y-1,gcost_,key));}
 	return succsNode;
 }
