@@ -16,8 +16,8 @@ A planning algorithm to make a mobile manipulator
 <br>The type of locomotion (holonomic/non-holonomic) could be set
 <br>by modifying the motion primitives in '<b>astar.py</b>' (cpp version is on the way).
 
-<h3>Solution: </h3>
-run:  <b>main.py</b>  (cpp version in on the way)
+<h3>Running the Planner: </h3>
+run:  <b>main.py</b>  
 <br><b>main.py</b> would use <b>astar.py</b> to find the states, as per the problem
 <br>specs in main.py . 
 <br>The solution is printed in <b>tree.txt</b>.
