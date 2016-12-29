@@ -9,13 +9,13 @@ A planning algorithm to make a mobile manipulator
 
 <h3>Solution:</h3> Lattice Based planne, using Astar .
 <hr>
-<h3>Setting Robot Specs: 'main.py'</h3> (cpp version in on the way)
+<h3>Setting Robot Specs: 'main.py'</h3> (c++ version in on the way)
 <h5>Single Arm mobile manipulator: </h5>
 The planner only depends on the workspace of the manipulator 
 <br>(not joint configuration) which could be set in <b>'main.py'</b>
-<h5> The base of Mnaipulator</h5>
+<h5> The base of Manipulator</h5>
 The type of locomotion (holonomic/non-holonomic) could be set
-<br>by modifying the motion primitives in '<b>astar.py</b>' (cpp version is on the way).
+<br>by modifying the motion primitives in '<b>astar.py</b>' (c++ version is on the way).
 
 <h3>Running the Planner: </h3>
 run:  <b>main.py</b><br><b>main.py</b> would use <b>astar.py</b> to find the states, as per the problem
