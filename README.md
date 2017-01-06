@@ -7,8 +7,14 @@ Details on implementation are in section : IV '<b>Implementation</b>'
 A planning algorithm to make a mobile manipulator
 <br>pull open a spring loaded door and navigate through it. 
 
-<h3>Solution:</h3> Lattice Based planne, using Astar .
+<h3>Solution:</h3> Lattice Based planner, using Astar .
 <hr>
+<h3>Structure of Planner: </h3>
+<b>Node.py</b> contains the basic structure of Node, including <i>getSuccs</i>, <br>
+<i>getHcost</i> for heuristic cost, and so on.
+<br><b>astar.py</b> conatins the main loop, and the hash table and priority queue.
+<br><b>main.py</b> contains the parameter of the specific problem
+
 <h3>Setting Robot Specs: 'main.py'</h3> (c++ version in on the way)
 <h5>Single Arm mobile manipulator: </h5>
 The planner only depends on the workspace of the manipulator 
@@ -17,10 +23,10 @@ The planner only depends on the workspace of the manipulator
 The type of locomotion (holonomic/non-holonomic) could be set
 <br>by modifying the motion primitives in '<b>astar.py</b>' (c++ version is on the way).
 
-<h3>Running the Planner: </h3>
+<h3> Running the Planner </h3>>
 run:  <b>main.py</b><br><b>main.py</b> would use <b>astar.py</b> to find the states, as per the problem
 <br>specs in <b>main.py</b> . 
-<br>The solution is printed in <b>tree.txt</b>.
+<br>The solution is printed in <b>tree#.txt</b>.
 
 <h3>Visualtisation:</h3> <b>vismain.m </b>(needs matlab 2016a or later version)
 <br><b>vismain.m</b> reads tree.txt
