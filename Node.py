@@ -1,18 +1,4 @@
 import math
-try:
-	from Queue import PriorityQueue as pq
-except: 
-	from queue import PriorityQueue as pq
-
-def init(door_r, arm_r, robo_dim, arena, desc):
-	node.door_r = door_r
-	node.arm_r = arm_r
-	node.Width = robo_dim[0]
-	node.Len = robo_dim[1]
-	node.arena_W = arena[0]
-	node.arena_L = arena[1]
-	node.dx = desc[0]
-	node.dy = desc[1]
 
 class node:
 
@@ -48,7 +34,7 @@ class node:
 		# (0,0)-> initial state
 
 		# the only transition possible when in contact with base from inside
-		# transition from base to arm 
+		#transition from base to arm 
 		if (self.h == 1 and self.v == 1 and self.d == 1):
 			vnew = 0
 			tempNode = node(self.x,self.y,self.theta,self.d,self.h,vnew,\
@@ -178,7 +164,7 @@ class node:
 		cost1 = max(0 , posR - rlen)
 		
 		angleRange = self.getFeasibleAngle()
-		angleRange = angleRange[1] - angleRange[0]
+		angleRange = math.fabs(angleRange[1]) - math.fabs(angleRange[0])
 		angleRem = 1.57 - angleRange
 		cost2 = 0.1*angleRem
 		
@@ -207,11 +193,17 @@ class node:
 
 		return cost
 	def getFeasibleAngle(self):
+		
+		
 		if self.d == 0:
-			roboAngle = round(math.atan2((self.y + node.Len),self.x)*100)/100	# accounting for robo size
+			roboAngle = round(math.atan2((self.y + node.Len),(self.x - node.Width))*100)/100	# accounting for robo size
 			return [0, roboAngle]
 		elif self.d == 1:
-			roboAngle = round(math.atan2((self.y),(self.x + node.Width))*100)/100	# accounting for robo size
+			if self.y ==0:
+				return [0,1.57]
+			elif self.x == 0:
+				return [1.57,1.57] 
+			roboAngle = round(math.atan2((self.y - node.Len),(self.x + node.Width))*100)/100	# accounting for robo size
 			return [roboAngle,1.57]
 		else:
 			return [0,1.57]
@@ -310,79 +302,7 @@ def printNode(Node):
 	else:
 		vstring = 'using base'
 	print Node.x, Node.y, dstring, hstring, vstring
-	print Node.gethashKey()
+	print Node.hcost
+	#print Node.gethashKey()
 
 	return 0
-
-def astar(start,goal,weight):
-	print 	node.door_r ,node.arm_r , node.Width , node.Len ,node.arena_W , node.arena_L 
-	closelist = {}
-	openlist = pq()
-	openlist_f = {}
-	gstart = 0
-	parent_start = 0
-	start_node = node(start[0],start[1],start[2],0,0,0,gstart,parent_start)
-	openlist.put((getCost(start_node,weight),start_node))
-	openlist_f[start_node.gethashKey()] = start_node
-	while (openlist.qsize()>0):
-		# print 'size of open list'
-		# print openlist.qsize()
-		# getting the node to expand 
-		LCNode = openlist.get()			# least cost node
-		node2exp = LCNode[1]
-		# print 'the hcost from different calls'
-		# print node2exp.hcost
-		# print node2exp.getHcost()
-		#print 'the node expand'
-		#printNode(node2exp)
-		#checking if the node2exp is the goal
-		if node2exp.getHcost() == 0.00 :
-			print 'goal reached via hcost'
-			printNode(node2exp)
-			print node2exp.getFeasibleAngle()
-			print 'number of expansions'
-			print len(closelist)
-			print 'teh cost'
-			print getCost(node2exp, weight)	
-			return [node2exp,closelist]
-		if node2exp.y >0 :
-			print 'goal reached'
-			printNode(node2exp)
-			return [node2exp,closelist]
-
-		#expanding the node
-		succs = node2exp.getSuccs()
-		# print 'number of succs'
-		# print len(succs)
-		for item in succs:
-			if item.gethashKey() in closelist:
-				# print 'duplicate ', item.gethashKey() , ' is the key'
-				continue
-			if item.gethashKey() in openlist_f:
-				# print 'duplicate in open list'
-				continue
-			# printNode(item)
-			openlist.put((getCost(item,weight),item))
-			openlist_f[item.gethashKey()] = item
-
-		# moving the expanded node to close list, and removing from open list dict
-		closelist[node2exp.gethashKey()] = node2exp
-		#del openlist_f[node2exp.gethashKey()]
-
-	return 0
-
-#  the main function
-if __name__ == '__main__':
-	import sys
-	startx = float(sys.argv[1])
-	starty = float(sys.argv[2])
-	startTheta = float(sys.argv[3])
-	goalx = float(sys.argv[4])
-	goaly = float(sys.argv[5])
-	goalTheta = float(sys.argv[6])
-	w = float(sys.argv[7])
-	out =  astar([startx, starty, startTheta], [goalx, goaly, goalTheta], w)
-	if out == 0 :
-		print 'failure'
-	else:
-		print 'success'

@@ -24,11 +24,26 @@ bool operator<(const node& a, const node& b)
 }
 astar::astar(int * Start, int * Goal, int* Arena, int Weight = 1)
 {
-	start = Start;
+	start_ = Start;
 	goal = Goal;
 	weight = Weight;
-	xlim = Arena[0];
-	ylim = Arena[1];
+	xlim_ = Arena[0];
+	ylim_ = Arena[1];
+}
+
+void astar::getPath(std::vector<node>& path,node& fNode,std::vector<node>& cList)
+{
+	 path.push_back(fNode);
+	 int i = 0;
+	 while (1)
+	 {
+	 	int pkey = fNode.pkey_;
+	 	if (pkey == 0){break;}
+	 	std::vector<node>::iterator searchIt = std::find_if(cList.begin(),cList.end(),searchNode(pkey));
+	 	fNode = *searchIt;
+
+	 	path.push_back(fNode);
+	 }	
 }
 
 int astar::findPath( std::vector<node>& path)
@@ -61,7 +76,7 @@ int astar::findPath( std::vector<node>& path)
 
 		// getting the successors
 		std::vector<node> succs;
-		currNode.getSuccs(succs,goal, xlim,ylim);
+		currNode.getSuccs(succs,goal, xlim_,ylim_);
 		
 		for (std::vector<node>::iterator itSuccs = succs.begin(); itSuccs != succs.end(); ++itSuccs)
 		{
@@ -91,6 +106,8 @@ int astar::findPath( std::vector<node>& path)
 		
 
 	}
+
+	//getting the path out
 	if (goalCheck == 1)
 	{
 		getPath(path, currNode,closedlist);
@@ -114,19 +131,3 @@ int astar::findPath( std::vector<node>& path)
 	return goalCheck;
 }
 
-void astar::getPath(std::vector<node>& path,node& fNode,std::vector<node>& cList)
-{
-	 path.push_back(fNode);
-	 int i = 0;
-	 while (1)
-	 {
-	 	int pkey = fNode.pkey_;
-	 	if (pkey == 0){break;}
-	 	std::vector<node>::iterator searchIt = std::find_if(cList.begin(),cList.end(),searchNode(pkey));
-	 	fNode = *searchIt;
-
-	 	path.push_back(fNode);
-
-	 }
-	
-}

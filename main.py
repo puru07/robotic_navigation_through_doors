@@ -1,14 +1,18 @@
 import astar
 import time
-Width = 0.25  	# along the x
-Len = 0.25 		# along the y
+from Node import node
+import  Node 
+# dimensions of robo and door
+
+Width = 0.25  			# along the x
+Len = 0.25 				# along the y
 door_r = 4*Width 			# radiusof the door
 arm_r = 1*door_r 			# radius of arm's workspace
 goal = [-0.5,0.5,0]
-start = [-1*door_r,-2*Width/4 ,0]
-w = 1
+start = [-1*door_r,-4*Width/2 ,0]
+w = 1					# weight for astar
 
-# dimensions of robo
+
 
 
 # dimensions of the arena
@@ -57,7 +61,7 @@ fileobj = open(filename, 'w')
 
 strtree = []
 for item in reversed(tree):
-	astar.printNode(item)
+	Node.printNode(item)
 	oneline = []
 	oneline += [str(item.x)]
 	oneline += [str(item.y)]

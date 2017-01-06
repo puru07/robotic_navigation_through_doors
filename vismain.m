@@ -1,5 +1,5 @@
 % intialising
-tree = load('tree.txt');
+tree = load('tree2.txt');
 prop = load('prop.txt');
 start = [prop(1);prop(2)];
 robodim = [prop(3),prop(4)];
@@ -14,8 +14,6 @@ figure(1)
 arenaC = [-1*arenadim(1)/2, -1*arenadim(2)/2];
 arena = createRect(arenaC,arenadim,1);
 
-% %circle
-% c1 = viscircles(start',roboA/2);
 % robot
 robo = createRect(start, robodim, 1);
 robo.FaceColor = 'magenta';
@@ -33,7 +31,7 @@ Pos = [X(1,1) + start(1),X(1,2) + start(1); X(2,1) + start(2),X(2,2) + start(2)]
 
 %create the arm
 link1 = line([start(1), Pos(1,1)], [start(2),Pos(2,1)],'LineWidth',4,'Color','blue');
-% create the arm
+% create the arm2
 link2 = line([ Pos(1,1),Pos(1,2)], [Pos(2,1),Pos(2,2)],'LineWidth',4,'Color','blue');
 
 pause();
@@ -45,8 +43,8 @@ angleiter = 0.1;
 pause(delay2)
 while abs(angle - initDoorangle) > 0.05
     angle = angle + angleiter;
-    x = [0, doordim*cos(angle)];
-    y = [0,doordim*sin(angle)];
+    x = [0, -1*(abs(doordim*cos(angle)))];
+    y = [0,-1*abs(doordim*sin(angle))];
     door.XData = x;
     door.YData = y;
     
@@ -63,7 +61,7 @@ while abs(angle - initDoorangle) > 0.05
     link2.YData = [Pos(2,1),Pos(2,2)];
     
     doori = [x(2);y(2)];
-    pause();
+    pause(delay2);
  
 end
 doorpre = [-doordim;0];
